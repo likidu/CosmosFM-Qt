@@ -1,25 +1,24 @@
-/**
- * @file user_model.h
- */
-
+// user.h
 #ifndef USER_H
 #define USER_H
+
+#include "client.h"
 
 #include <QObject>
 #include <QString>
 
-class User : public QObject
+class User : public Client
 {
     Q_OBJECT
 
-private:
-    /* data */
 public:
-    User(QObject *parent = 0);
+    explicit User(QObject *parent = 0);
 
-    bool sendCode(QString mobilePhoneNumber, QString areaCode = "86");
+public slots:
+    void sendCode();
 
-    ~User();
+signals:
+    void codeSent();
 };
 
 #endif // USER_H

@@ -13,6 +13,10 @@ Page {
         }
     }
 
+    User {
+        id: user
+    }
+
     Flickable {
         id: flickable1
         x: 30
@@ -34,8 +38,10 @@ Page {
             x: 72
             y: 168
             text: "Button"
-            onClicked: user.sendCode(textfield1.text);
+            onClicked: user.sendCode();
         }
+
     }
+
 
 }

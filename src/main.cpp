@@ -14,12 +14,13 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     app->setOrganizationName("Liya.Design");
     // app->setApplicationVersion(VER);
 
+    // Register the User class as a QML type
     RegisterPlugin(User);
 
     // QmlApplicationViewer viewer;
     QScopedPointer<QmlApplicationViewer> viewer(new QmlApplicationViewer());
 
-    viewer->rootContext()->setContextProperty("user", new User(viewer.data()));
+    // viewer->rootContext()->setContextProperty("user", &user);
 
     viewer->setOrientation(QmlApplicationViewer::ScreenOrientationLockPortrait);
     viewer->setMainQmlFile(QLatin1String("qml/CosmosFM/main.qml"));

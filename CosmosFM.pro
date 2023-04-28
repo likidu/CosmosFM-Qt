@@ -33,12 +33,18 @@ MOBILITY += systeminfo
 CONFIG += qt-components
 
 HEADERS += \
-    src/user.h
+    src/user.h \
+    src/api.h  \
+    src/client.h
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += \
     src/main.cpp \
-    src/user.cpp
+    src/user.cpp \
+    src/client.cpp
+
+include(lib/qjson/qjson.pri)
+DEFINES += QJSON_MAKEDLL
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
