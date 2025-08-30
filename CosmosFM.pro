@@ -47,5 +47,12 @@ include(lib/qjson/qjson.pri)
 DEFINES += QJSON_MAKEDLL
 
 # Please do not modify the following two lines. Required for deployment.
+QT += network
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
-qtcAddDeployment()
+
+# Avoid Qt Creator emulator deployment make fragments when building via SBSv2 on Symbian
+symbian: {
+    # Rely on standard Symbian build without qtcAddDeployment to prevent flm errors
+} else {
+    qtcAddDeployment()
+}
