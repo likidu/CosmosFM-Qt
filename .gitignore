@@ -52,3 +52,11 @@ compile_commands.json
 *creator.user*
 
 *_qmlcache.qrc
+
+# Allow the Symbian build helper script
+!scripts/*.ps1
+
+# Explicitly ignore top-level build directories
+/build/
+/build-simulator/
+

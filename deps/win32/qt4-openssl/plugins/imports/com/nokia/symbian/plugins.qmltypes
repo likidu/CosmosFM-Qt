@@ -1,0 +1,433 @@
+import QtQuick.tooling 1.1
+
+// This file describes the plugin-supplied types contained in the library.
+// It is used for QML tooling purposes only.
+
+Module {
+    Component {
+        name: "SBatteryInfo"
+        prototype: "QObject"
+        exports: [
+            "BatteryInfo 1.1"
+        ]
+        Property { name: "batteryLevel"; type: "int"; isReadonly: true }
+        Property { name: "charging"; type: "bool"; isReadonly: true }
+        Property { name: "powerSaveModeEnabled"; type: "bool"; isReadonly: true }
+        Signal {
+            name: "batteryLevelChanged"
+            Parameter { name: "level"; type: "int" }
+        }
+        Signal {
+            name: "chargingChanged"
+            Parameter { name: "charging"; type: "bool" }
+        }
+        Signal {
+            name: "powerSaveModeEnabledChanged"
+            Parameter { name: "enabled"; type: "bool" }
+        }
+    }
+    Component {
+        name: "SDeclarative"
+        prototype: "QObject"
+        exports: [
+            "Symbian 1.1"
+        ]
+        Enum {
+            name: "InteractionMode"
+            values: {
+                "TouchInteraction": 0,
+                "KeyNavigation": 1
+            }
+        }
+        Enum {
+            name: "S60Version"
+            values: {
+                "SV_S60_5_2": 0,
+                "SV_S60_5_3": 1,
+                "SV_S60_5_4": 2,
+                "SV_S60_UNKNOWN": 3
+            }
+        }
+        Enum {
+            name: "ScrollBarVisibility"
+            values: {
+                "ScrollBarWhenNeeded": 0,
+                "ScrollBarWhenScrolling": 1
+            }
+        }
+        Enum {
+            name: "SourceSize"
+            values: {
+                "UndefinedSourceDimension": -2
+            }
+        }
+        Enum {
+            name: "EffectType"
+            values: {
+                "FadeOut": 0,
+                "FadeInFadeOut": 1
+            }
+        }
+        Enum {
+            name: "Feedback"
+            values: {
+                "Basic": 0,
+                "Sensitive": 1,
+                "BasicButton": 2,
+                "SensitiveButton": 3,
+                "BasicKeypad": 4,
+                "SensitiveKeypad": 5,
+                "BasicSlider": 6,
+                "SensitiveSlider": 7,
+                "BasicItem": 8,
+                "SensitiveItem": 9,
+                "ItemScroll": 10,
+                "ItemPick": 11,
+                "ItemDrop": 12,
+                "ItemMoveOver": 13,
+                "BounceEffect": 14,
+                "CheckBox": 15,
+                "MultipleCheckBox": 16,
+                "Editor": 17,
+                "TextSelection": 18,
+                "BlankSelection": 19,
+                "LineSelection": 20,
+                "EmptyLineSelection": 21,
+                "PopUp": 22,
+                "PopupOpen": 23,
+                "PopupClose": 24,
+                "Flick": 25,
+                "StopFlick": 26,
+                "MultiPointTouchActivate": 27,
+                "RotateStep": 28,
+                "LongPress": 29,
+                "PositiveTacticon": 30,
+                "NeutralTacticon": 31,
+                "NegativeTacticon": 32
+            }
+        }
+        Property { name: "listInteractionMode"; type: "InteractionMode" }
+        Property { name: "currentTime"; type: "string"; isReadonly: true }
+        Property { name: "foreground"; type: "bool"; isReadonly: true }
+        Property { name: "s60Version"; type: "S60Version"; isReadonly: true }
+        Property { name: "rightToLeftDisplayLanguage"; type: "bool"; isReadonly: true }
+        Property { name: "privateGraphicsSharing"; type: "bool"; isReadonly: true }
+        Signal { name: "listInteractionModeChanged" }
+        Signal { name: "currentTimeChanged" }
+        Signal { name: "foregroundChanged" }
+        Signal {
+            name: "privateListItemKeyNavigation"
+            Parameter { name: "listView"; type: "QVariant" }
+        }
+        Method { name: "privateAllocatedMemory"; type: "int" }
+        Method { name: "privateClearIconCaches" }
+        Method { name: "privateClearComponentCache" }
+        Method { name: "privateGraphicsSharing"; type: "bool" }
+        Method {
+            name: "privateSendMouseRelease"
+            Parameter { name: "item"; type: "QDeclarativeItem"; isPointer: true }
+        }
+    }
+    Component {
+        name: "SDeclarativeFocusScopeItem"
+        defaultProperty: "data"
+        prototype: "QDeclarativeItem"
+        exports: [
+            "FocusScopeItem 1.1"
+        ]
+        Method { name: "widthExplicit"; type: "bool" }
+    }
+    Component {
+        name: "SDeclarativeIcon"
+        defaultProperty: "data"
+        prototype: "QDeclarativeItem"
+        exports: [
+            "Icon 1.1"
+        ]
+        Property { name: "iconName"; type: "string" }
+        Property { name: "iconColor"; type: "QColor" }
+        Signal {
+            name: "iconNameChanged"
+            Parameter { name: "name"; type: "string" }
+        }
+        Signal {
+            name: "iconColorChanged"
+            Parameter { name: "color"; type: "QColor" }
+        }
+    }
+    Component {
+        name: "SDeclarativeImplicitSizeItem"
+        defaultProperty: "data"
+        prototype: "QDeclarativeItem"
+        exports: [
+            "ImplicitSizeItem 1.1"
+        ]
+        Property { name: "implicitWidth"; type: "qreal" }
+        Property { name: "implicitHeight"; type: "qreal" }
+        Signal { name: "implicitWidthChanged" }
+        Signal { name: "implicitHeightChanged" }
+    }
+    Component {
+        name: "SDeclarativeIndicatorContainer"
+        defaultProperty: "data"
+        prototype: "QDeclarativeItem"
+        exports: [
+            "UniversalIndicators 1.1"
+        ]
+        Property { name: "indicatorColor"; type: "QColor" }
+        Property { name: "indicatorWidth"; type: "int" }
+        Property { name: "indicatorHeight"; type: "int" }
+        Property { name: "indicatorPadding"; type: "int" }
+        Property { name: "maxIndicatorCount"; type: "int" }
+        Signal {
+            name: "indicatorColorChanged"
+            Parameter { name: "color"; type: "QColor" }
+        }
+        Signal { name: "indicatorSizeChanged" }
+        Signal {
+            name: "indicatorPaddingChanged"
+            Parameter { name: "padding"; type: "int" }
+        }
+        Signal {
+            name: "maxIndicatorCountChanged"
+            Parameter { name: "maxCount"; type: "int" }
+        }
+        Method { name: "layoutChildren" }
+    }
+    Component {
+        name: "SDeclarativeInputContext"
+        prototype: "QObject"
+        exports: [
+            "InputContext 1.1"
+        ]
+        Property { name: "height"; type: "qreal"; isReadonly: true }
+        Property { name: "visible"; type: "bool"; isReadonly: true }
+        Signal { name: "heightChanged" }
+        Signal { name: "visibleChanged" }
+    }
+    Component {
+        name: "SDeclarativeMagnifier"
+        defaultProperty: "data"
+        prototype: "QDeclarativeItem"
+        exports: [
+            "Magnifier 1.1"
+        ]
+        Property { name: "sourceRect"; type: "QRectF" }
+        Property { name: "scaleFactor"; type: "qreal" }
+        Property { name: "overlayFileName"; type: "string" }
+        Property { name: "maskFileName"; type: "string" }
+        Signal { name: "sourceRectChanged" }
+        Signal { name: "scaleFactorChanged" }
+        Signal { name: "overlayFileNameChanged" }
+        Signal { name: "maskFileNameChanged" }
+    }
+    Component {
+        name: "SDeclarativeMaskedImage"
+        defaultProperty: "data"
+        prototype: "QDeclarativeItem"
+        exports: [
+            "MaskedImage 1.1"
+        ]
+        Property { name: "imageName"; type: "string" }
+        Property { name: "maskName"; type: "string" }
+        Property { name: "topMargin"; type: "int" }
+        Property { name: "bottomMargin"; type: "int" }
+        Property { name: "leftMargin"; type: "int" }
+        Property { name: "rightMargin"; type: "int" }
+        Property { name: "tiled"; type: "bool" }
+        Property { name: "offset"; type: "QPoint" }
+    }
+    Component {
+        name: "SDeclarativeNetworkIndicator"
+        defaultProperty: "data"
+        prototype: "QDeclarativeItem"
+        exports: [
+            "NetworkIndicator 1.1"
+        ]
+        Property { name: "color"; type: "QColor" }
+        Property { name: "offline"; type: "bool"; isReadonly: true }
+        Signal { name: "colorChanged" }
+        Signal { name: "offlineChanged" }
+    }
+    Component {
+        name: "SDeclarativeScreen"
+        prototype: "QObject"
+        exports: [
+            "Screen 1.1"
+        ]
+        Enum {
+            name: "Orientation"
+            values: {
+                "Default": 0,
+                "Portrait": 1,
+                "Landscape": 2,
+                "PortraitInverted": 4,
+                "LandscapeInverted": 8,
+                "All": 15
+            }
+        }
+        Enum {
+            name: "Orientations"
+            values: {
+                "Default": 0,
+                "Portrait": 1,
+                "Landscape": 2,
+                "PortraitInverted": 4,
+                "LandscapeInverted": 8,
+                "All": 15
+            }
+        }
+        Enum {
+            name: "DisplayCategory"
+            values: {
+                "Small": 0,
+                "Normal": 1,
+                "Large": 2,
+                "ExtraLarge": 3
+            }
+        }
+        Enum {
+            name: "Density"
+            values: {
+                "Low": 0,
+                "Medium": 1,
+                "High": 2,
+                "ExtraHigh": 3
+            }
+        }
+        Property { name: "width"; type: "int"; isReadonly: true }
+        Property { name: "height"; type: "int"; isReadonly: true }
+        Property { name: "displayWidth"; type: "int"; isReadonly: true }
+        Property { name: "displayHeight"; type: "int"; isReadonly: true }
+        Property { name: "rotation"; type: "int"; isReadonly: true }
+        Property { name: "currentOrientation"; type: "Orientation"; isReadonly: true }
+        Property { name: "allowedOrientations"; type: "Orientations" }
+        Property { name: "dpi"; type: "qreal"; isReadonly: true }
+        Property { name: "displayCategory"; type: "DisplayCategory"; isReadonly: true }
+        Property { name: "density"; type: "Density"; isReadonly: true }
+        Signal { name: "widthChanged" }
+        Signal { name: "heightChanged" }
+        Signal { name: "currentOrientationChanged" }
+        Signal { name: "allowedOrientationsChanged" }
+        Signal { name: "displayChanged" }
+        Signal { name: "privateAboutToChangeOrientation" }
+        Method {
+            name: "privateSetDisplay"
+            Parameter { name: "width"; type: "int" }
+            Parameter { name: "height"; type: "int" }
+            Parameter { name: "dpi"; type: "qreal" }
+        }
+    }
+    Component {
+        name: "SDialogStatus"
+        prototype: "QObject"
+        exports: [
+            "DialogStatus 1.1"
+        ]
+        Enum {
+            name: "Status"
+            values: {
+                "Opening": 0,
+                "Open": 1,
+                "Closing": 2,
+                "Closed": 3
+            }
+        }
+    }
+    Component {
+        name: "SMouseGrabDisabler"
+        prototype: "QObject"
+        exports: [
+            "MouseGrabDisabler 1.1"
+        ]
+        Method {
+            name: "setKeepMouseGrab"
+            Parameter { name: "target"; type: "QDeclarativeItem"; isPointer: true }
+            Parameter { name: "keep"; type: "bool" }
+        }
+    }
+    Component {
+        name: "SNetworkInfo"
+        prototype: "QObject"
+        exports: [
+            "NetworkInfo 1.1"
+        ]
+        Enum {
+            name: "NetworkMode"
+            values: {
+                "UnknownMode": 0,
+                "GsmMode": 1,
+                "CdmaMode": 2,
+                "WcdmaMode": 3,
+                "WlanMode": 4,
+                "EthernetMode": 5,
+                "BluetoothMode": 6,
+                "WimaxMode": 7
+            }
+        }
+        Enum {
+            name: "NetworkStatus"
+            values: {
+                "UndefinedStatus": 0,
+                "NoNetworkAvailable": 1,
+                "EmergencyOnly": 2,
+                "Searching": 3,
+                "Busy": 4,
+                "Connected": 5,
+                "HomeNetwork": 6,
+                "Denied": 7,
+                "Roaming": 8
+            }
+        }
+        Property { name: "networkMode"; type: "NetworkMode"; isReadonly: true }
+        Property { name: "networkStatus"; type: "NetworkStatus"; isReadonly: true }
+        Property { name: "networkSignalStrength"; type: "int"; isReadonly: true }
+        Signal {
+            name: "networkModeChanged"
+            Parameter { name: "mode"; type: "NetworkMode" }
+        }
+        Signal {
+            name: "networkStatusChanged"
+            Parameter { name: "mode"; type: "NetworkMode" }
+            Parameter { name: "status"; type: "NetworkStatus" }
+        }
+        Signal {
+            name: "networkSignalStrengthChanged"
+            Parameter { name: "mode"; type: "NetworkMode" }
+            Parameter { name: "strength"; type: "int" }
+        }
+    }
+    Component {
+        name: "SPageOrientation"
+        prototype: "QObject"
+        exports: [
+            "PageOrientation 1.1"
+        ]
+        Enum {
+            name: "PageOrientation"
+            values: {
+                "Automatic": 0,
+                "LockPortrait": 1,
+                "LockLandscape": 2,
+                "LockPrevious": 3,
+                "Manual": 4
+            }
+        }
+    }
+    Component {
+        name: "SPageStatus"
+        prototype: "QObject"
+        exports: [
+            "PageStatus 1.1"
+        ]
+        Enum {
+            name: "Status"
+            values: {
+                "Inactive": 0,
+                "Activating": 1,
+                "Active": 2,
+                "Deactivating": 3
+            }
+        }
+    }
+}

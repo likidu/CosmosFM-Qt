@@ -17,7 +17,8 @@ Page {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         text: qsTr("Battery Status: %1%").arg(progressbar1.value)
-        color: platformStyle.colorNormalLight
+        // Fallback color for desktop when Symbian platformStyle is not available
+        color: (typeof platformStyle !== "undefined" && platformStyle.colorNormalLight) ? platformStyle.colorNormalLight : "white"
         font.pixelSize: 20
     }
 

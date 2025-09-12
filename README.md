@@ -1,29 +1,50 @@
 # CosmosFM-Qt
 
-Build run complete — the debug build succeeded using RVCT 4.0.
+## Build
 
-What I did
+- Simulator (Windows, Qt SDK MinGW 4.4):
 
-- Ran scripts/build-symbian.ps1 for debug with your SDK/RVCT paths.
-- Fixed env/tooling issues by updating the script:
-  - Adds RVCT include/lib auto-detection.
-  - Mirrors RVCT22* vars to RVCT40* to satisfy Raptor checks.
-  - Makes -DebugOnly flow robust; prints outputs; exits cleanly.
-  - Enables verbose sbs to aid diagnosis.
+  - Debug: `./scripts/build_sim.ps1 -Config debug`
+  - Release: `./scripts/build_sim.ps1 -Config release`
+  - Add `-StageTlsDlls` to copy Qt4 + OpenSSL DLLs next to the exe when `deps/win32/qt4-openssl/<config>` exists. If `deps/win32/qt4-openssl/plugins` exists, matching Qt plugins are staged automatically.
 
-Build
+- Symbian (RVCT):
+  - Example debug build: `./scripts/build-symbian.ps1 -SdkRoot "C:\Symbian\Tools\PDK_3.0.4" -RvctBin "C:\Program Files\ARM\RVCT\Tools\4.0\arm\bin" -DebugOnly`
+  - Output: `C:\Symbian\Tools\PDK_3.0.4\epoc32\release\armv5\udeb\CosmosFM.exe`
 
-- `.\scripts\build-symbian.ps1 -SdkRoot "C:\Symbian\Tools\PDK_3.0.4" -RvctBin "C:\Program Files\ARM\RVCT\Tools\4.0\arm\bin" -DebugOnly`
+## Package (Symbian)
 
-Result
+- Debug (udeb): `./scripts/package-selfsigned.ps1 -SdkRoot "C:\Symbian\Tools\PDK_3.0.4" -Pkg ./CosmosFM_template.pkg -Variant udeb -OutDir ./build/sis`
+- Release (urel): `./scripts/package-selfsigned.ps1 -SdkRoot "C:\Symbian\Tools\PDK_3.0.4" -Pkg ./CosmosFM_template.pkg -Variant urel -OutDir ./build/sis`
+- Smart Installer: `./scripts/package-selfsigned.ps1 -SdkRoot "C:\Symbian\Tools\PDK_3.0.4" -Pkg ./CosmosFM_installer.pkg -Variant urel`
 
-- Outputs: `C:\Symbian\Tools\PDK_3.0.4\epoc32\release\armv5\udeb\CosmosFM.exe`
+Ensure the built binary exists under your SDK’s `epoc32/release/<armv5>/<udeb|urel>/CosmosFM.exe` before packaging.
 
-Changes
+## TLS 1.1/1.2 Verification (Windows / Qt Simulator)
 
-scripts/build-symbian.ps1
+- Probe: `./scripts/test_tls.ps1 -Config debug -StageTlsDlls`
+  - Success prints “TLS 1.2 handshake ok” and exit code 0.
+- Inspect runtime: `./scripts/inspect_sim_runtime.ps1 -Config debug`
+  - Flags x86/x64, toolchain (MSVC/MinGW), and debug/release mismatches.
 
-Want me to:
+## QML Components
 
-Build the release variant as well?
-Add a packaging step (makesis/signsis) using CosmosFM_installer.pkg and output a signed SIS?
+- The app imports `com.nokia.symbian 1.1` when available.
+- Scripts stage components from `deps/win32/qt-components` into `build-simulator/<config>/imports`.
+- If you see “module "com.nokia.symbian" is not installed”, ensure the module exists under `build-simulator/imports` or set `QML_IMPORT_PATH` accordingly.
+
+## Troubleshooting
+
+- -1073741511 (0xC0000139) on launch:
+
+  - Use matching Qt plugins for the Core/Gui/Declarative you stage. When `deps/win32/qt4-openssl/plugins` exists, plugins are staged automatically by `build_sim.ps1`.
+  - Verify runtime with `./scripts/inspect_sim_runtime.ps1 -Config debug`.
+
+- General:
+  - Prefer staging DLLs per-build over replacing files in the SDK. It’s safer and reproducible.
+
+## Windows (Qt Simulator) runtime layout
+
+For where to copy Windows DLLs, plugins, and QML components used by the scripts, see:
+
+- `deps/win32/README.md`
